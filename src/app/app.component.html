@@ -1,0 +1,74 @@
+<app-header></app-header>
+
+<section>
+   
+   <div class="container mt-4">
+      <div class="row"> 
+         <div class="col-md-4"><div class="alert alert-danger" *ngIf="flag" >{{errormessage}}</div>
+            <form #bookForm="ngForm" (ngSubmit)="onSubmit()">
+               <h1 class="text-bg-success">Enter the Book Details</h1>
+               <div class="form-group">
+                  <label for="bookname">Book Name:</label>
+                  <input type="text"  name="bookname" [(ngModel)]="books.name"  #name="ngModel" required class="form-control my-3"
+                    id="bookname" placeholder="Book name">
+            
+                  <div *ngIf="name.touched && name.invalid && name.errors?.['required']" class="alert alert-danger">Book name is required
+                  </div>
+            
+                </div>
+                <div class="form-group">
+                  <label for="authorName">Enter the Author Name:</label>
+                  <input type="text" name="authorname" id="authorname" [(ngModel)]="books.author" #author="ngModel" required class="form-control my-3" placeholder="Author name">
+                  <div *ngIf="author.touched&&author.invalid && author.errors?.['required']" class="alert alert-danger">Author name required</div>
+                </div>
+                <div class="form-group">
+                  <label for="year">Enter the Year of publish:</label>
+                  <input type="number" name="bookyear" id="year" [(ngModel)]="books.year" #year="ngModel" required  pattern="[0-9]*"  minlength="4" maxlength="4" class="form-control my-3" placeholder="Year of publish">
+                  <div *ngif="year.touched && year.invalid" class="alert alert-danger">Year is Required</div>
+                  <div *ngIf="year.touched && year.invalid && year.errors?.['minlength']" class="alert alert-danger">Year must be four digits</div>
+                </div>
+                <div class="form-group">
+                   <label for="language">Enter the language:</label>
+                   <input type="text" name="language" id="language" [(ngModel)]="books.language" #language="ngModel" required pattern="[a-zA-Z]*" class="form-control my-3" placeholder="language..">
+                   <div *ngIf="language.touched && language.invalid && language.errors?.['required']" class="alert alert-danger">language is Required</div>
+                </div>
+                <button type="submit" class="btn btn-secondary mt-3">Submit</button>
+                <button type="reset" class="btn btn-primary mt-3 mx-3" (click)="reset()">Reset</button>
+            </form>
+         </div>
+   
+      </div>
+
+   </div>
+</section>
+
+
+
+
+
+
+
+
+
+<div class="mt-3">
+ <table class="table table-bordered bg-warning text-dark">
+    <thead>
+      <tr>
+         <th>Id</th>
+         <th>name</th>
+         <th>author</th>
+         <th>year</th>
+         <th>language</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of book" class="text-dark bg-white">
+         <td>{{b.id}}</td>
+         <td>{{b.name}}</td>
+         <td>{{b.author}}</td>
+         <td>{{b.year}}</td>
+         <td>{{b.language}}</td>
+      </tr>
+    </tbody>
+ </table>
+</div>
